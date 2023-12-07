@@ -97,7 +97,7 @@ WSGI_APPLICATION = "geonet_api.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.mysql",
-        "HOST": os.environ.get("DB_HOST", "localhost"),
+        "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
         "NAME": os.environ.get("DB_NAME", "geonet"),
         "USER": os.environ.get("DB_USER", "root"),
         "PASSWORD": os.environ.get("DB_PASSWORD", "root"),
@@ -171,3 +171,7 @@ STORAGES = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# nginx reverse proxy
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
