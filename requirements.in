@@ -1,0 +1,10 @@
+# Django
+Django>=4.2,<4.3 # LTS
+django-cors-headers
+djangorestframework
+drf-yasg
+django-extensions
+djangorestframework-gis
+# Database
+mysqlclient
+gunicorn
