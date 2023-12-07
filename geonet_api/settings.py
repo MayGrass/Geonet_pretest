@@ -169,3 +169,5 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
