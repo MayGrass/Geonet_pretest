@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: geonet
+      MYSQL_USER: dev_user
+      MYSQL_PASSWORD: dev_password
+      MYSQL_ROOT_PASSWORD: root_password
+    networks:
+      - geonet
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: db
+      DB_NAME: geonet
+      DB_USER: dev_user
+      DB_PASSWORD: dev_password
+      DB_PORT: 3306
+      PORT: 8888
+    ports:
+      - "8888:8888"
+    depends_on:
+      - db
+    networks:
+      - geonet
+    command: sh run_server.sh
+
+networks:
+  geonet:
+    driver: bridge

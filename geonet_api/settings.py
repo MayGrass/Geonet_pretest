@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-ept*r^rvmv$zx1)=ol4ss20skijh4$@s8@ao2(^&+!24fpxml4"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", True)
+DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -57,6 +57,9 @@ THIRD_PARTY_APPS = [
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -139,6 +142,7 @@ USE_TZ = False  # 使用本地時間
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -155,4 +159,13 @@ REST_FRAMEWORK = {
 SWAGGER_SETTINGS = {
     "USE_SESSION_AUTH": False,
     "SECURITY_DEFINITIONS": {},
+}
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
 }
